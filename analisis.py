@@ -1,3 +1,5 @@
+#!/usr/local/bin/python
+
 from sqlalchemy import create_engine, text
 from conexion import str_conexion
 import pandas as pd
@@ -74,18 +76,14 @@ def actualizar_tabla(df_a_pasar, nombre_tabla):
         return
     
     try:
-        with engine.connect() as conexion:
+        with engine.begin() as conexion:
             conexion.execute(text(f'DELETE FROM {nombre_tabla}'))
-            conexion.commit()
-
+            
             load_a_sql(df_a_pasar, nombre_tabla)
+
             print("Operación exitosa")
     except Exception as e:
         print(f'Error: {e}')
-        conexion.rollback() 
-    finally:
-        conexion.close() 
-    print('\n¡Traslado de datos completo!')
 
 actualizar_tabla(reporte_balance, 'reportes_mensuales')
 actualizar_tabla(reporte_por_categoria, 'reportes_categorias')
