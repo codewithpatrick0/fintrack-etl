@@ -59,10 +59,10 @@ reporte_por_categoria = reporte_por_categoria.reset_index().rename(columns={
     'id_usuario_t': 'id_usuario'
     })
 
-def load_a_sql(df_a_pasar, nombre_tabla):
+def load_a_sql(df_a_pasar, nombre_tabla, conexion):
     df_a_pasar.to_sql(
         name=nombre_tabla,
-        con=engine,
+        con=conexion,
         if_exists='append',
         index=False
     )
@@ -79,7 +79,7 @@ def actualizar_tabla(df_a_pasar, nombre_tabla):
         with engine.begin() as conexion:
             conexion.execute(text(f'DELETE FROM {nombre_tabla}'))
             
-            load_a_sql(df_a_pasar, nombre_tabla)
+            load_a_sql(df_a_pasar, nombre_tabla, conexion)
 
             print("Operación exitosa")
     except Exception as e:
