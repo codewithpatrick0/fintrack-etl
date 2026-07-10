@@ -1,0 +1,27 @@
+# Variables de entorno / secretos
+.env
+.env.*
+!.env.example
+
+# Entornos virtuales
+venv/
+.venv/
+env/
+ENV/
+
+# Bytecode / cache de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Git
+.git/
+.gitignore
+
+# Editores / SO
+.vscode/
+.idea/
+.DS_Store
+
+# Docs
+README.md
